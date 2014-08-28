@@ -1,15 +1,18 @@
-from ubuntu:14.04
+FROM google/debian:wheezy
 maintainer David Gageot <david@gageot.net>
 
-# Prerequisites
-run apt-get update
-run apt-get install -y software-properties-common
+ENV DEBIAN_FRONTEND noninteractive
+
+# Add webupd8team repository
+RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee /etc/apt/sources.list.d/webupd8team-java.list
+RUN echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886
+RUN apt-get update -qq
 
 # Install Java 8
-run add-apt-repository -y ppa:webupd8team/java
-run apt-get update
-run echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
-run apt-get install -y oracle-java8-installer
+RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
+RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
+RUN apt-get install -yqq oracle-java8-installer oracle-java8-set-default
 
-# Install Maven
-run apt-get install -yy maven
+WORKDIR /home
+CMD ["java"]
