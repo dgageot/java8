@@ -1,18 +1,16 @@
 FROM google/debian:wheezy
-maintainer David Gageot <david@gageot.net>
+MAINTAINER David Gageot <david@gageot.net>
 
-ENV DEBIAN_FRONTEND noninteractive
-
-# Add webupd8team repository
-RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee /etc/apt/sources.list.d/webupd8team-java.list
-RUN echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886
+# Update dependencies
 RUN apt-get update -qq
 
-# Install Java 8
-RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
-RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
-RUN apt-get install -yqq oracle-java8-installer oracle-java8-set-default
+# Install dependencies
+RUN apt-get install -yqq wget
+
+RUN wget -q -O - --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u5-b13/jdk-8u5-linux-x64.tar.gz | tar xzf - -C /opt/
+
+ENV JAVA_HOME /opt/jdk1.8.0_05
+ENV PATH $PATH:$JAVA_HOME/bin
 
 WORKDIR /home
 CMD ["java"]
