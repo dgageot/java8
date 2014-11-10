@@ -1,5 +1,5 @@
 FROM dgageot/busybox-ubuntu
-MAINTAINER David Gageot <david@gageot.net>
+MAINTAINER Christophe Labouisse <christophe@labouisse.org>
 
 # Install curl with ssl support
 RUN (wget -O - http://www.magicermine.com/demos/curl/curl/curl-7.30.0.ermine.tar.bz2 | bunzip2 -c - | tar xf -) \
