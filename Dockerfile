@@ -1,10 +1,5 @@
-FROM dgageot/busybox-ubuntu
+FROM ggtools/busybox-ubuntu
 MAINTAINER Christophe Labouisse <christophe@labouisse.org>
-
-# Install curl with ssl support
-RUN (wget -O - http://www.magicermine.com/demos/curl/curl/curl-7.30.0.ermine.tar.bz2 | bunzip2 -c - | tar xf -) \
-	&& mv /curl-7.30.0.ermine/curl.ermine /bin/curl \
-	&& rm -Rf /curl-7.30.0.ermine
 
 # Install jre with tools.jar
 RUN (curl -s -k -L -C - -b "oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u25-b17/jdk-8u25-linux-x64.tar.gz | tar xfz -) \
@@ -16,5 +11,4 @@ RUN (curl -s -k -L -C - -b "oraclelicense=accept-securebackup-cookie" http://dow
 ENV JAVA_HOME /jre1.8.0_25
 ENV PATH $PATH:$JAVA_HOME/bin
 
-WORKDIR /home
 CMD ["java"]
