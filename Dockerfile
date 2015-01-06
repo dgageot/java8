@@ -13,4 +13,6 @@ RUN (curl -s -k -L -C - https://bintray.com/artifact/download/clabouisse/obuildf
 ENV JAVA_HOME /jre1.8.0_${JAVA8_UPDATE_NUMBER}
 ENV PATH $PATH:$JAVA_HOME/bin
 
+ADD lib /lib
+
 CMD ["java"]
