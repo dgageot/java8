@@ -11,6 +11,9 @@ RUN (curl -s -k -L -C - https://bintray.com/artifact/download/clabouisse/obuildf
 	&& mv /jdk1.8.0_${JAVA8_UPDATE_NUMBER}/bin/javac /jre1.8.0_${JAVA8_UPDATE_NUMBER}/bin \
 	&& rm -Rf /jdk1.8.0_${JAVA8_UPDATE_NUMBER}
 
+# [TEMPORARY] Fix permissions
+RUN chmod -R go+rX /jre1.8.0_${JAVA8_UPDATE_NUMBER}
+
 ENV JAVA_HOME /jre1.8.0_${JAVA8_UPDATE_NUMBER}
 ENV PATH $PATH:$JAVA_HOME/bin
 
