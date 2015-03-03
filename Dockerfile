@@ -1,7 +1,7 @@
 FROM ggtools/busybox-ubuntu
 MAINTAINER Christophe Labouisse <christophe@labouisse.org>
 
-ENV JAVA8_UPDATE_NUMBER 31
+ENV JAVA8_UPDATE_NUMBER 40
 
 # Install jre with tools.jar
 RUN (curl -s -k -L -C - https://bintray.com/artifact/download/clabouisse/obuildfactory-generic-x86-64/jdk-1.8.0-openjdk-x86_64-1.8.0_u${JAVA8_UPDATE_NUMBER}.tar.xz \
